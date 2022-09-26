@@ -1,0 +1,93 @@
+{% extends 'homePage.html' %}
+{% block content %}
+<!-- Navbar -->
+
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="true">
+    <div class="container-fluid py-1 px-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{data}}</li>
+        </ol>
+        <h6 class="font-weight-bolder mb-0">{{data}} Form</h6>
+      </nav>
+      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-0" id="navbar">
+        <ul class="navbar-nav  ms-md-auto pe-md-3 d-flex align-items-center">
+          <li class="nav-item d-flex align-items-center">
+            <a href="{% url 'logout' %}" class="nav-link text-body font-weight-bold d-flex border rounded ">
+              <span class="material-icons">
+                directions_run
+              </span>
+              <span class="d-sm-inline d-none">LOGOUT</span>
+            </a>
+          </li>
+          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item px-3 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-body p-0">
+              <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+  <div class="container-fluid py-4 ">
+    <table class="table border" >
+      <thead style="background-color: #42424a;">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Sponsor</th>
+          <th scope="col">Name</th>
+          <th scope="col">User_Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th> 
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for data in userData %}
+          {% if data.username != "admin" %}
+        
+            <tr>
+              <th scope="row">{{data.id}}</th>
+              <td>{{data.sponsor}}</td>
+              <td>{{data.first_name}}</td>
+              <td>{{data.username}}</td>
+              <td>{{data.email}}</td>
+              <!-- <td>{{data.is_active}}</td> -->
+              {%if data.is_active == True%}
+              <td><button data-id={{data.username}} class="button"><span class="">Active</span></button></td>
+              {%endif%}
+              {% comment %} {% else %}
+
+              {% endif %} {% endcomment %}
+              <td class="d-flex align-items-center mt-2">
+                <span class="material-icons text-danger ">
+                  delete_forever
+                </span>
+                Delete
+              </td>
+            </tr>
+          {%endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+
+    <script>
+      $(".button").click(function() {
+      $(".button span").html($(".button span").html() == 'Active' ? 'Inactive' : 'Active');
+      $(".button").addClass($(".button").addClass()) == 'btn-success' ? 'btn-danger' : 'btn-success';
+      });
+    </script>
+{% endblock content %}
